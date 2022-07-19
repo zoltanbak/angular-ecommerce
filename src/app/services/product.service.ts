@@ -11,10 +11,11 @@ import { ProductCategory } from '../model/product-category';
 export class ProductService {
 
   // Spring Data REST return only 20 products by default, so need to override that by url-param: http://localhost:8080/api/products?size=100
-  private baseUrl: string = 'http://localhost:8080/api';
-  private productUrl: string = this.baseUrl + '/products/search/findByCategoryId?id=';
-  private searchUrl: string = this.baseUrl + '/products/search/findByNameContaining?name=';
-  private categoryUrl: string = this.baseUrl + '/product-category';
+  private readonly baseUrl: string = 'http://localhost:8080/api';
+  private readonly categoryUrl: string = this.baseUrl + '/product-category';
+  private readonly productUrl: string = this.baseUrl + '/products'
+  private readonly idUrl: string = this.productUrl + '/search/findByCategoryId?id=';
+  private readonly nameUrl: string = this.productUrl + '/search/findByNameContaining?name=';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -25,12 +26,18 @@ export class ProductService {
   }
 
   getProductList(categoryId: number): Observable<Product[]> {
-    const searchUrl: string = `${this.productUrl}${categoryId}`;
-    return this.getProducts(searchUrl);
+    const url: string = this.idUrl + categoryId;
+    return this.getProducts(url);
   }
 
   searchProducts(keyword: string): Observable<Product[]> {
-    return this.getProducts(this.searchUrl + keyword);
+    const url: string = this.nameUrl + keyword
+    return this.getProducts(url);
+  }
+
+  getProduct(id: number): Observable<Product> {
+    const url: string = this.productUrl + '/' + id;
+    return this.httpClient.get<Product>(url);
   }
 
   private getProducts(url: string): Observable<Product[]> {
