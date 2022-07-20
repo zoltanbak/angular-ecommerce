@@ -23,11 +23,51 @@
                 </div>
 
                 <!-- If products empty then display a message to the user -->
-                <div *ngIf="products?.length == 0" class="alert alert-warning col-md-12">
+                <div *ngIf="products?.length == 0" class="alert alert-warning col-md-12" role="alert">
                     No products found.
                 </div>
 
             </div>
+
+            <!-- Begin footer -->
+            <div class="footer-pagination">
+                <div class="row">
+                    <div class="col-md-6"></div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-9" style="padding-left: 30%">
+
+                                <!-- [(page)] - two-way data binding -->
+                                <ngb-pagination [(page)]="pageNumber"
+                                                [pageSize]="pageSize"
+                                                [collectionSize]="totalElements"
+                                                [maxSize]="paginationMaxSize"
+                                                [boundaryLinks]="true"
+                                                (pageChange)="listProducts()">
+                                </ngb-pagination>
+
+                            </div>
+
+                            <div class="col-md-3 mt-2" style="text-align: right;">
+                                <span class="mr-2">Page Size</span>
+
+                                <select (change)="updatePageSize($any($event).target.value)" [value]="5">
+                                    <option value="2">2</option>
+                                    <option value="5" selected="true">5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- End footer -->
+
         </div>
     </div>
 </div>
