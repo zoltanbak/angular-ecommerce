@@ -3,6 +3,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Product } from 'src/app/model/product';
 import { ProductService } from 'src/app/services/product.service';
 import { Page } from 'src/app/model/page';
+import { CartItem } from 'src/app/model/cart-item';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -25,6 +27,7 @@ export class ProductListComponent implements OnInit {
   previousKeyword: string = "";
 
   constructor(private productService: ProductService,
+              private cartService: CartService,
               private route: ActivatedRoute) { }
 
   // Similar to @PostConstruct
@@ -119,5 +122,11 @@ export class ProductListComponent implements OnInit {
       this.pageSize = data.page.size;
       this.totalElements = data.page.totalElements;
     };
+  }
+
+  addToCart(product: Product): void {
+    console.log(`Adding to cart: ${product.name}, ${product.unitPrice}`);
+    
+    this.cartService.addToCart(new CartItem(product));
   }
 }
