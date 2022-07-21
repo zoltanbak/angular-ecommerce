@@ -12,6 +12,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
+import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 
 const routes: Routes = [
   // When the path matches, create a new instance of component
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'products/:id', component: ProductDetailsComponent},
   { path: 'products', component: ProductListComponent },
   { path: 'search/:keyword', component: ProductListComponent },
+  { path: 'cart-details', component: CartDetailsComponent },
   // Match the full path as opposed to just the prefix
   { path: '', redirectTo: '/products', pathMatch: 'full' },
   { path: '**', redirectTo: '/products', pathMatch: 'full' }
@@ -33,6 +35,7 @@ const routes: Routes = [
     SearchComponent,
     ProductDetailsComponent,
     CartStatusComponent,
+    CartDetailsComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
