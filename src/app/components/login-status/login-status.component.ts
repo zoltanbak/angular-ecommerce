@@ -31,16 +31,15 @@ export class LoginStatusComponent implements OnInit {
       // user full name is exposed as a property name
       this.oktaAuthService.getUser().then(
         (result) => {
-          this.userFullName = result.name;
+          this.userFullName = result.name!;
         }
       );
     }
+  }
 
-    logout() {
-      // Terminates the session with Okta and removes current tokens.
-      this.oktaAuthService.signOut();
-    }
-
+  logout() {
+    // Terminates the session with Okta and removes current tokens.
+    this.oktaAuthService.signOut();
   }
 
 }
